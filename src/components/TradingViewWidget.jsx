@@ -1,4 +1,4 @@
-import { useEffect, useRef, memo } from 'react';
+import { useEffect, useRef, memo } from "react";
 
 function TradingViewWidget() {
   const container = useRef<HTMLDivElement>(null);
@@ -11,24 +11,28 @@ function TradingViewWidget() {
     script.type = "text/javascript";
     script.async = true;
 
-    const scriptContent = JSON.stringify({
-      "autosize": true,
-      "symbol": "CRYPTO:BTCUSD",
-      "timezone": "Etc/UTC",
-      "theme": "light",
-      "style": "2",
-      "locale": "en",
-      "enable_publishing": false,
-      "hide_top_toolbar": true,
-      "hide_legend": true,
-      "range": "5D",
-      "save_image": false,
-      "calendar": false,
-      "hide_volume": true,
-      "support_host": "https://www.tradingview.com"
-    });
+    // Add the configuration as a data attribute
+    script.setAttribute(
+      "data-config",
+      JSON.stringify({
+        autosize: true,
+        symbol: "CRYPTO:BTCUSD",
+        timezone: "Etc/UTC",
+        theme: "light",
+        style: "2",
+        locale: "en",
+        enable_publishing: false,
+        hide_top_toolbar: true,
+        hide_legend: true,
+        range: "5D",
+        save_image: false,
+        calendar: false,
+        hide_volume: true,
+        support_host: "https://www.tradingview.com",
+      })
+    );
 
-    script.innerHTML = scriptContent;
+    // Append the script to the container
     container.current.appendChild(script);
 
     return () => {
@@ -39,7 +43,11 @@ function TradingViewWidget() {
   }, []);
 
   return (
-    <div className="tradingview-widget-container" ref={container} style={{ height: "100%", width: "100%" }}></div>
+    <div
+      className="tradingview-widget-container"
+      ref={container}
+      style={{ height: "100%", width: "100%" }}
+    ></div>
   );
 }
 
