@@ -9,17 +9,22 @@ import img from "../assets/btc.png";
 function Crypto() {
     const [cryptoData, setCryptoData] = useState(null);
 
+   
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=inr%2Cusd&include_24hr_change=true"
-        );
-        setCryptoData(response.data.bitcoin);
-      } catch (error) {
-        console.error("Error fetching cryptocurrency data:", error);
-      }
+        try{
+            const response = await axios.get(
+                "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=inr,usd&include_24h_change=true"
+            );
+            setCryptoData(response.data.bitcoin)
+        }
+        catch(error){
+            console.log("Error Fetching Crypto Data");
+        }
     };
+
+
 
     fetchData();
 
