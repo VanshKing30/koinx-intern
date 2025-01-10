@@ -15,7 +15,7 @@ function Crypto() {
     const fetchData = async () => {
         try{
             const response = await axios.get(
-                "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=inr,usd&include_24h_change=true"
+                `${process.env.REACT_APP_COINGECKO_URL}`
             );
             setCryptoData(response.data.bitcoin)
         }
